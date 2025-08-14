@@ -25,7 +25,7 @@ abstract class  LocaleKeys {
   static const project_details = 'project_details';
   static const view_project = 'view_project';
   static const download_resume = 'download_resume';
-  static const resume = 'resume';
+  static const viewResume = 'viewResume';
   static const language = 'language';
   static const dark_mode = 'dark_mode';
   static const light_mode = 'light_mode';
@@ -37,5 +37,18 @@ abstract class  LocaleKeys {
   static const getInTouch = 'getInTouch';
   static const sendMessage = 'sendMessage';
   static const viewMyWork = 'viewMyWork';
+  static const hiIam = 'hiIam';
+  static const denisMaina = 'denisMaina';
+  static const mobileApplicationDeveloper = 'mobileApplicationDeveloper';
+  static const iBuildFunctional = 'iBuildFunctional';
+  static const iAmAPassionateMobileDeveloper = 'iAmAPassionateMobileDeveloper';
+  static const iSeeMobileDevelopment = 'iSeeMobileDevelopment';
+  static const iBelieveInCreating = 'iBelieveInCreating';
+  static const whenIamNotCoding = 'whenIamNotCoding';
+  static const basedIn = 'basedIn';
+  static const fivePlusYearsExperience = 'fivePlusYearsExperience';
+  static const remoteWork = 'remoteWork';
+  static const continousLearner = 'continousLearner';
+  static const whoAmI = 'whoAmI';
 
 }

@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:my_portifolio/presentation/home_page.dart';
+import 'package:my_portifolio/presentation/home/home_page.dart';
 import 'package:portfolio_components/portfolio_components.dart';
 
 void main() async{
@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Portfolio',
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       theme: PFAppTheme.light,

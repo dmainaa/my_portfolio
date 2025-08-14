@@ -7,8 +7,9 @@ import 'package:portfolio_components/portfolio_components.dart';
 class HomeIntroSection extends StatelessWidget {
   const HomeIntroSection({super.key});
 
-  bool _isMobile(double width) => width < 600;
-  bool _isTablet(double width) => width >600;
+  bool _isMobile(double width) => width < PFAppSize.mobile;
+  bool _isTablet(double width) => width >PFAppSize.mobile && width <= PFAppSize.desktop;
+
 
   @override
   Widget build(BuildContext context) {

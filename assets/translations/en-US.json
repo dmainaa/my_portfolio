@@ -46,7 +46,13 @@
     "fivePlusYearsExperience": "5+ years of experience",
     "remoteWork": "Remote Work",
     "continousLearner": "Continuous Learner",
-    "whoAmI": "Who am I"
-
+    "whoAmI": "Who am I",
+    "myProjects": "My Projects",
+    "hereAreSomeOfMyRecentProjects": "Here are some of my recent projects. Each one represents a unique challenge and solution, showcasing my skills in mobile application development.",
+    "all": "All",
+    "flutter": "Flutter",
+    "ai": "AI",
+    "android": "Android",
+    "ios": "iOS"
   }
   

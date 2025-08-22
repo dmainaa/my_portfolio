@@ -50,5 +50,12 @@ abstract class  LocaleKeys {
   static const remoteWork = 'remoteWork';
   static const continousLearner = 'continousLearner';
   static const whoAmI = 'whoAmI';
+  static const myProjects = 'myProjects';
+  static const hereAreSomeOfMyRecentProjects = 'hereAreSomeOfMyRecentProjects';
+  static const all = 'all';
+  static const flutter = 'flutter';
+  static const ai = 'ai';
+  static const android = 'android';
+  static const ios = 'ios';
 
 }

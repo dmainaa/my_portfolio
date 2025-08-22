@@ -31,6 +31,7 @@ class HomeIntroSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const PFSpacer(size: PFAppSize.s20),
           PFText(
             LocaleKeys.hiIam.tr(),
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
@@ -73,21 +74,42 @@ class HomeIntroSection extends StatelessWidget {
                 label: LocaleKeys.viewMyWork.tr(),
                 onPressed: () {},
                 backgroundColor: PFAppColors.scaffoldBackground,
-                borderColor: PFAppColors.primary,
-                textColor: PFAppColors.primary,
-     
+                borderColor: PFAppColors.accent,
+                textColor: PFAppColors.accent,
+                icon: Icon(Icons.file_copy, color: PFAppColors.accent),
               ),
               PFPrimaryButton(
                 label: LocaleKeys.viewResume.tr(),
                 onPressed: () {},
                 backgroundColor: PFAppColors.scaffoldBackground,
-                borderColor: PFAppColors.accent,
-                textColor: PFAppColors.accent,
+                borderColor: PFAppColors.primary,
+                textColor: PFAppColors.primary,
                 icon: Icon(Icons.file_copy, color: PFAppColors.accent),
               ),
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class IntroSectionButton extends StatelessWidget {
+
+  const IntroSectionButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return IntrinsicWidth(
+      child: PFPrimaryButton(
+        label: LocaleKeys.viewMyWork.tr(),
+        onPressed: () {},
+        backgroundColor: PFAppColors.scaffoldBackground,
+        borderColor: PFAppColors.primary,
+        textColor: PFAppColors.primary,
+           
       ),
     );
   }

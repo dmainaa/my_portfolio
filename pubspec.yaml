@@ -37,7 +37,8 @@ dependencies:
   easy_localization: ^3.0.7
   lucide_icons: any
   portfolio_components:
-    path: ../portfolio_components
+    git:
+      url: https://github.com/dmainaa/portfolio_components.git
 
 dev_dependencies:
   flutter_test:

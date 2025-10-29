@@ -38,6 +38,9 @@ class PFSkillsSection extends StatelessWidget {
         GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: isMobile ? 1 : 3,
+            childAspectRatio: isMobile ? 1.5 : 1.0,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
           ),
           itemBuilder: (context, index) {
             final skills = getAllSkills(isMobile, constraints);

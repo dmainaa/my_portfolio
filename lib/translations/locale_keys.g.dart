@@ -57,5 +57,22 @@ abstract class  LocaleKeys {
   static const ai = 'ai';
   static const android = 'android';
   static const ios = 'ios';
+  static const getInTouchDescription = 'getInTouchDescription';
+  static const sendMeAMessage = 'sendMeAMessage';
+  static const name = 'name';
+  static const yourName = 'yourName';
+  static const pleaseEnterYourName = 'pleaseEnterYourName';
+  static const yourEmail = 'yourEmail';
+  static const pleaseEnterYourEmail = 'pleaseEnterYourEmail';
+  static const pleaseEnterValidEmail = 'pleaseEnterValidEmail';
+  static const subject = 'subject';
+  static const pleaseEnterSubject = 'pleaseEnterSubject';
+  static const message = 'message';
+  static const yourMessage = 'yourMessage';
+  static const pleaseEnterMessage = 'pleaseEnterMessage';
+  static const messageSent = 'messageSent';
+  static const contactInformation = 'contactInformation';
+  static const contactInformationDescription = 'contactInformationDescription';
+  static const location = 'location';
 
 }

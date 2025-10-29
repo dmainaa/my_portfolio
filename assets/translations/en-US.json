@@ -53,6 +53,23 @@
     "flutter": "Flutter",
     "ai": "AI",
     "android": "Android",
-    "ios": "iOS"
+    "ios": "iOS",
+    "getInTouchDescription": "Have a project in mind or want to work together? Feel free to reach out!",
+    "sendMeAMessage": "Send Me a Message",
+    "name": "Name",
+    "yourName": "Your name",
+    "pleaseEnterYourName": "Please enter your name",
+    "yourEmail": "Your email",
+    "pleaseEnterYourEmail": "Please enter your email",
+    "pleaseEnterValidEmail": "Please enter a valid email",
+    "subject": "Subject",
+    "pleaseEnterSubject": "Please enter a subject",
+    "message": "Message",
+    "yourMessage": "Your message",
+    "pleaseEnterMessage": "Please enter a message",
+    "messageSent": "Message sent successfully!",
+    "contactInformation": "Contact Information",
+    "contactInformationDescription": "Don't hesitate to reach out. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.",
+    "location": "Location"
   }
   

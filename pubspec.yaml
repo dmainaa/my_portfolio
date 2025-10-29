@@ -39,6 +39,9 @@ dependencies:
   portfolio_components:
     git:
       url: https://github.com/dmainaa/portfolio_components.git
+  pdf: ^3.11.1
+  printing: ^5.13.4
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:

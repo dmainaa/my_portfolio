@@ -16,15 +16,15 @@ class _PFProjectsSectionState extends State<PFProjectsSection> {
   int selectedIndex = 0;
   final List<PFProject> allProjects = [
     PFProject(
-      title: 'Project 1',
+      title: 'KEPSHA',
       description: 'Description of Project 1',
       imageUrl: 'https://via.placeholder.com/150',
       teckStack: ['Flutter', 'AI'],
       projectUrl: '',
       mainStack: 'Flutter',
       techTags: [   
-        TechTag(name: 'Flutter', icon: Icons.flutter_dash, link: 'https://flutter.dev'),
-        TechTag(name: 'AI', icon: Icons.memory, link: 'https://ai.google/'),
+        TechTag(name: 'Flutter', icon: Icons.flutter_dash, link: 'https://flutter.dev'), 
+        TechTag(name: 'Firebase', icon: Icons.memory,),
       ],
     ),
     PFProject(
@@ -55,18 +55,35 @@ class _PFProjectsSectionState extends State<PFProjectsSection> {
     ),
   ];
 
+  // Store GitHub and PlayStore URLs separately
+  final Map<String, Map<String, String>> projectLinks = {
+    'Project 1': {
+      'github': 'https://github.com/username/project1',
+      'playstore': '',
+    },
+    'Project 2': {
+      'github': 'https://github.com/username/project2',
+      'playstore': 'https://play.google.com/store/apps/details?id=com.example.project2',
+    },
+    'Project 3': {
+      'github': '',
+      'playstore': 'https://play.google.com/store/apps/details?id=com.example.project3',
+    },
+  };
+
   final Map<String, List<PFProject>> projects = {
     'All': [
       PFProject(
-        title: 'Project 1',
+        title: 'KEPSHA 1',
         description: 'Description of Project 1',
-        imageUrl: 'assets/images/sample_cover1.png',
+        imageUrl: 'assets/images/kepsha_placeholder.jpg',
         teckStack: ['Flutter', 'AI'],
+        imageBanner: 'assets/images/kepsha_app_banner.png',
         projectUrl: '',
         mainStack: 'Flutter',
-        techTags: [   
+        techTags: [
           TechTag(name: 'Flutter', icon: Icons.flutter_dash, link: 'https://flutter.dev'),
-          TechTag(name: 'AI', icon: Icons.memory, link: 'https://ai.google/'),
+          TechTag(name: 'Firebase', icon: Icons.memory, link: 'https://ai.google/'),
         ],
       ),
       PFProject(
@@ -76,7 +93,7 @@ class _PFProjectsSectionState extends State<PFProjectsSection> {
         teckStack: ['Android'],
         projectUrl: '',
         mainStack: 'Android',
-        techTags: [   
+        techTags: [
           TechTag(name: 'Android', icon: Icons.android, link: 'https://developer.android.com/'),
         ],
       ),
@@ -87,7 +104,7 @@ class _PFProjectsSectionState extends State<PFProjectsSection> {
         teckStack: ['Android'],
         projectUrl: '',
         mainStack: 'Android',
-        techTags: [   
+        techTags: [
           TechTag(name: 'Android', icon: Icons.android, link: 'https://developer.android.com/'),
         ],
       ),
@@ -140,28 +157,28 @@ class _PFProjectsSectionState extends State<PFProjectsSection> {
               ),
             ),
             const PFSpacer(),
-            PFTabLayout(
-              items: [
-                PFTabItem(LocaleKeys.all.tr()),
-                PFTabItem(LocaleKeys.flutter.tr()),
-                PFTabItem(LocaleKeys.android.tr()),
-                PFTabItem(LocaleKeys.ai.tr()),
-              ],
-              onTabSelected: (index) {
-                // Handle tab selection
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-            ),
-            const PFSpacer(size: PFAppSize.s20),
             PFProjectsView(children: projects[getSelectedTabTitle(selectedIndex)]?.map((project) {
               return LayoutBuilder(
                 builder: (context, constraints) =>
-                 PFProjectCard(
-                  project: project,
-                  constraints: constraints,
-                ),
+                 GestureDetector(
+                   onTap: () {
+                     // Navigate to project detail page
+                     final projectId = project.title.toLowerCase().replaceAll(' ', '-');
+                     final links = projectLinks[project.title] ?? {};
+                     Navigator.of(context).pushNamed(
+                       '/project/$projectId',
+                       arguments: {
+                         'project': project,
+                         'githubUrl': links['github'] ?? '',
+                         'playStoreUrl': links['playstore'] ?? '',
+                       },
+                     );
+                   },
+                   child: PFProjectCard(
+                    project: project,
+                    constraints: constraints,
+                  ),
+                 ),
               );
             }).toList() ?? []),
             // You can add your project cards or list here

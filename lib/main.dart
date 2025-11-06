@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:my_portifolio/presentation/home/home_page.dart';
+import 'package:my_portifolio/presentation/project_detail/project_detail_page.dart';
 import 'package:portfolio_components/portfolio_components.dart';
 
 void main() async{
@@ -8,7 +9,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(
-    EasyLocalization( 
+    EasyLocalization(
       supportedLocales: [Locale('en', 'US')],
       path: 'assets/translations',
       startLocale: Locale('en', 'US'),
@@ -31,6 +32,23 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       theme: PFAppTheme.light,
       home: const HomeScreen(),
+      onGenerateRoute: (settings) {
+        // Handle /project/:id route
+        if (settings.name?.startsWith('/project/') ?? false) {
+          final args = settings.arguments as Map<String, dynamic>?;
+          if (args != null && args['project'] != null) {
+            return MaterialPageRoute(
+              builder: (context) => ProjectDetailPage(
+                project: args['project'] as PFProject,
+                githubUrl: args['githubUrl'] as String?,
+                playStoreUrl: args['playStoreUrl'] as String?,
+              ),
+              settings: settings,
+            );
+          }
+        }
+        return null;
+      },
     );
   }
 }

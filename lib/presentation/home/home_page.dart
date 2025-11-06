@@ -68,9 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  size.width > PFAppSize.mobile
-                      ? const PFSpacer(size: PFAppSize.s100)
-                      : const SizedBox.shrink(),
+                  const PFSpacer(size: PFAppSize.s100),
                   HomeIntroSection(key: _homeKey),
                   const PFSpacer(),
                   PFAboutMeSection(

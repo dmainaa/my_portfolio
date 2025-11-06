@@ -9,48 +9,38 @@ class PFSkillsSection extends StatelessWidget {
   List<String> get skillCategories => ['Mobile', 'Web', 'AI'];
 
   List<PFSkill> get mobileSkills => [
-    PFSkill(title: 'Flutter', percentage: 0.8),
-    PFSkill(title: 'Dart', percentage: 0.9),
+    PFSkill(title: 'Flutter', percentage: 0.9, isStarred: true),
+    PFSkill(title: 'Dart', percentage: 0.9, isStarred: true),
     PFSkill(title: 'Java', percentage: 0.7),
     PFSkill(title: 'Kotlin', percentage: 0.6),
-  ]; 
+  ];
   List<PFSkill> get webSkills => [
     PFSkill(title: 'JavaScript', percentage: 0.7),
     PFSkill(title: 'TypeScript', percentage: 0.6),
-    PFSkill(title: 'React', percentage: 0.8),
+    PFSkill(title: 'React', percentage: 0.8, isStarred: true),
     PFSkill(title: 'Angular', percentage: 0.5),
   ];
   List<PFSkill> get aiSkills => [
     PFSkill(title: 'Machine Learning', percentage: 0.7),
     PFSkill(title: 'Data Science', percentage: 0.6),
-    PFSkill(title: 'Python', percentage: 0.8),
-    PFSkill(title: 'TensorFlow', percentage: 0.5),
+    PFSkill(title: 'Python', percentage: 0.8, isStarred: true),
+    PFSkill(title: 'TensorFlow', percentage: 0.8, isStarred: true),
     ];
 
   List<Map<String, List<PFSkill>>>?  skillsByCategory;
+
+  // Get all skills from all categories
+  List<PFSkill> get allSkillsList => [
+    ...mobileSkills,
+    ...webSkills,
+    ...aiSkills,
+  ];
 
   @override
   Widget build(BuildContext context) {
     return PFSectionWidget(
       title: "My Skills",
-      child: LayoutBuilder(
-        builder: (context, constraints) =>
-        GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: isMobile ? 1 : 3,
-            childAspectRatio: isMobile ? 1.5 : 1.0,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-          ),
-          itemBuilder: (context, index) {
-            final skills = getAllSkills(isMobile, constraints);
-            return skills[index];
-          },
-          itemCount: getAllSkills(isMobile, constraints).length,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-        ),
-      ),
+      child: PFStarredSkillsView(skills: allSkillsList),
     );
   }
 

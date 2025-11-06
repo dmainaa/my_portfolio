@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:my_portifolio/translations/locale_keys.g.dart';
 import 'package:portfolio_components/portfolio_components.dart'
     show
@@ -35,20 +36,51 @@ class _GetInTouchSectionState extends State<GetInTouchSection> {
     super.dispose();
   }
 
-  void _handleSendMessage() {
+  Future<void> _handleSendMessage() async {
     if (_formKey.currentState?.validate() ?? false) {
-      // TODO: Implement actual message sending logic
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(LocaleKeys.messageSent.tr()),
-          backgroundColor: PFAppColors.primary,
-        ),
-      );
-      // Clear form
-      _nameController.clear();
-      _emailController.clear();
-      _subjectController.clear();
-      _messageController.clear();
+      try {
+        final toEmail = 'denismaina96@gmail.com';
+        final subject = Uri.encodeComponent(_subjectController.text);
+        final body = Uri.encodeComponent('''
+Name: ${_nameController.text}
+Email: ${_emailController.text}
+
+Message:
+${_messageController.text}
+''');
+
+        final mailtoUri = Uri.parse(
+          'mailto:$toEmail?subject=$subject&body=$body',
+        );
+
+        await launchUrl(
+          mailtoUri,
+          mode: LaunchMode.platformDefault,
+        );
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(LocaleKeys.messageSent.tr()),
+              backgroundColor: Colors.green,
+            ),
+          );
+          _formKey.currentState?.reset();
+          _nameController.clear();
+          _emailController.clear();
+          _subjectController.clear();
+          _messageController.clear();
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Could not open email client: $e'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
     }
   }
 
@@ -65,34 +97,28 @@ class _GetInTouchSectionState extends State<GetInTouchSection> {
             LocaleKeys.getInTouchDescription.tr(),
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: PFAppColors.defaultTextColor,
-                  fontSize: 16,
-                ),
+              color: PFAppColors.defaultTextColor,
+              fontSize: 16,
+            ),
           ),
           const PFSpacer(size: PFAppSize.s50),
           isMobile
               ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    _buildContactForm(),
-                    const PFSpacer(size: PFAppSize.s50),
-                    _buildContactInfo(),
-                  ],
-                )
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _buildContactForm(),
+                  const PFSpacer(size: PFAppSize.s50),
+                  _buildContactInfo(),
+                ],
+              )
               : Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: _buildContactForm(),
-                    ),
-                    const PFSpacer(size: PFAppSize.s100, vertical: false),
-                    Expanded(
-                      flex: 1,
-                      child: _buildContactInfo(),
-                    ),
-                  ],
-                ),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(flex: 1, child: _buildContactForm()),
+                  const PFSpacer(size: PFAppSize.s100, vertical: false),
+                  Expanded(flex: 1, child: _buildContactInfo()),
+                ],
+              ),
         ],
       ),
     );
@@ -147,8 +173,9 @@ class _GetInTouchSectionState extends State<GetInTouchSection> {
                       if (value == null || value.isEmpty) {
                         return LocaleKeys.pleaseEnterYourEmail.tr();
                       }
-                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                          .hasMatch(value)) {
+                      if (!RegExp(
+                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      ).hasMatch(value)) {
                         return LocaleKeys.pleaseEnterValidEmail.tr();
                       }
                       return null;
@@ -248,9 +275,7 @@ class _GetInTouchSectionState extends State<GetInTouchSection> {
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(
-                color: Colors.red,
-              ),
+              borderSide: const BorderSide(color: Colors.red),
             ),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
@@ -277,9 +302,9 @@ class _GetInTouchSectionState extends State<GetInTouchSection> {
         PFText(
           LocaleKeys.contactInformationDescription.tr(),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: PFAppColors.defaultTextColor,
-                fontSize: 16,
-              ),
+            color: PFAppColors.defaultTextColor,
+            fontSize: 16,
+          ),
           maxLines: 3,
         ),
         const PFSpacer(size: PFAppSize.s40),
@@ -328,11 +353,7 @@ class _GetInTouchSectionState extends State<GetInTouchSection> {
             color: PFAppColors.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(
-            icon,
-            color: PFAppColors.primary,
-            size: 20,
-          ),
+          child: Icon(icon, color: PFAppColors.primary, size: 20),
         ),
         const SizedBox(width: 16),
         Expanded(
@@ -370,32 +391,32 @@ class _GetInTouchSectionState extends State<GetInTouchSection> {
     ];
 
     return Row(
-      children: socials.map((social) {
-        return Padding(
-          padding: const EdgeInsets.only(right: 12),
-          child: InkWell(
-            onTap: () {
-              // TODO: Implement opening URLs
-              // launch(social['url'] as String);
-            },
-            child: Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: PFAppColors.primary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: PFAppColors.primary.withValues(alpha: 0.3),
+      children:
+          socials.map((social) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: InkWell(
+                onTap: () {
+                  launchUrl(Uri.parse(social['url'] as String));
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: PFAppColors.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: PFAppColors.primary.withValues(alpha: 0.3),
+                    ),
+                  ),
+                  child: Icon(
+                    social['icon'] as IconData,
+                    color: PFAppColors.primary,
+                    size: 20,
+                  ),
                 ),
               ),
-              child: Icon(
-                social['icon'] as IconData,
-                color: PFAppColors.primary,
-                size: 20,
-              ),
-            ),
-          ),
-        );
-      }).toList(),
+            );
+          }).toList(),
     );
   }
 }

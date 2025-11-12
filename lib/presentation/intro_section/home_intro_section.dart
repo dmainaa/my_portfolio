@@ -7,7 +7,9 @@ import 'package:my_portifolio/utils/pdf_generator.dart';
 import 'package:portfolio_components/portfolio_components.dart';
 
 class HomeIntroSection extends StatelessWidget {
-  const HomeIntroSection({super.key});
+  const HomeIntroSection({super.key, required this.onViewMyWork});
+
+  final Function() onViewMyWork;
 
   bool _isMobile(double width) => width < PFAppSize.mobile;
   bool _isTablet(double width) =>
@@ -35,7 +37,9 @@ class HomeIntroSection extends StatelessWidget {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('PDF ready! You can save or print it from the dialog.'),
+            content: Text(
+              'PDF ready! You can save or print it from the dialog.',
+            ),
             backgroundColor: Colors.green,
             duration: Duration(seconds: 3),
           ),
@@ -72,21 +76,15 @@ class HomeIntroSection extends StatelessWidget {
     return isMobile
         ? _buildMobileLayout(context)
         : Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: isTablet ? 2 : 1,
-                child: _buildContent(context),
-              ),
-              if (!isMobile) ...[
-                const SizedBox(width: 50),
-                Expanded(
-                  flex: 1,
-                  child: _buildSvgAsset(),
-                ),
-              ],
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(flex: isTablet ? 2 : 1, child: _buildContent(context)),
+            if (!isMobile) ...[
+              const SizedBox(width: 50),
+              Expanded(flex: 1, child: _buildSvgAsset()),
             ],
-          );
+          ],
+        );
   }
 
   Widget _buildMobileLayout(BuildContext context) {
@@ -128,9 +126,9 @@ class HomeIntroSection extends StatelessWidget {
         const PFSpacer(),
         PFText(
           LocaleKeys.iBuildFunctional.tr(),
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: PFAppColors.defaultTextColor,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: PFAppColors.defaultTextColor),
           maxLines: 4,
         ),
         const PFSpacer(size: PFAppSize.s20),
@@ -139,13 +137,8 @@ class HomeIntroSection extends StatelessWidget {
           runSpacing: PFAppSize.s20,
           children: [
             PFPrimaryButton(
-              label: LocaleKeys.getInTouch.tr(),
-              onPressed: () {},
-              backgroundColor: PFAppColors.primary,
-            ),
-            PFPrimaryButton(
               label: LocaleKeys.viewMyWork.tr(),
-              onPressed: () {},
+              onPressed: onViewMyWork,
               backgroundColor: PFAppColors.scaffoldBackground,
               borderColor: PFAppColors.accent,
               textColor: PFAppColors.accent,
@@ -154,9 +147,9 @@ class HomeIntroSection extends StatelessWidget {
             PFPrimaryButton(
               label: LocaleKeys.viewResume.tr(),
               onPressed: () => _showResumeDialog(context),
-              backgroundColor: PFAppColors.scaffoldBackground,
+              backgroundColor: PFAppColors.primary,
               borderColor: PFAppColors.primary,
-              textColor: PFAppColors.primary,
+              textColor: PFAppColors.defaultTextColor,
               icon: const Icon(Icons.description, color: PFAppColors.primary),
             ),
           ],

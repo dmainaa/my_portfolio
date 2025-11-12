@@ -8,7 +8,6 @@ import 'package:my_portifolio/presentation/my_skills/my_skills.dart';
 import 'package:my_portifolio/translations/locale_keys.g.dart';
 import 'package:portfolio_components/portfolio_components.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -32,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  void _scrollToSection(GlobalKey key) {
+  void scrollToSection(GlobalKey key) {
     final context = key.currentContext;
     if (context != null) {
       final renderBox = context.findRenderObject() as RenderBox;
@@ -40,7 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
       final offset = _scrollController.offset;
 
       // Calculate target position accounting for AppBar height
-      final targetPosition = offset + position - 100; // 100px offset for floating AppBar
+      final targetPosition =
+          offset + position - 100; // 100px offset for floating AppBar
 
       _scrollController.animateTo(
         targetPosition,
@@ -63,13 +63,20 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal:
-                    size.width > PFAppSize.mobile ? PFAppSize.s50 : PFAppSize.s20,
+                    size.width > PFAppSize.mobile
+                        ? PFAppSize.s50
+                        : PFAppSize.s20,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const PFSpacer(size: PFAppSize.s100),
-                  HomeIntroSection(key: _homeKey),
+                  HomeIntroSection(
+                    key: _homeKey,
+                    onViewMyWork: () {
+                      scrollToSection(_projectsKey);
+                    },
+                  ),
                   const PFSpacer(),
                   PFAboutMeSection(
                     key: _aboutKey,
@@ -78,10 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const PFSpacer(),
                   PFProjectsSection(key: _projectsKey),
                   const PFSpacer(),
-                  PFSkillsSection(
-                    key: _skillsKey,
-                    isMobile: size.width < 600,
-                  ),
+                  PFSkillsSection(key: _skillsKey, isMobile: size.width < 600),
                   const PFSpacer(),
                   GetInTouchSection(key: _contactKey),
                   const PFSpacer(),
@@ -99,23 +103,23 @@ class _HomeScreenState extends State<HomeScreen> {
               links: [
                 PFLink(
                   title: LocaleKeys.home.tr(),
-                  onTap: () => _scrollToSection(_homeKey),
+                  onTap: () => scrollToSection(_homeKey),
                 ),
                 PFLink(
                   title: LocaleKeys.about.tr(),
-                  onTap: () => _scrollToSection(_aboutKey),
+                  onTap: () => scrollToSection(_aboutKey),
                 ),
                 PFLink(
                   title: LocaleKeys.projects.tr(),
-                  onTap: () => _scrollToSection(_projectsKey),
+                  onTap: () => scrollToSection(_projectsKey),
                 ),
                 PFLink(
                   title: LocaleKeys.skills.tr(),
-                  onTap: () => _scrollToSection(_skillsKey),
+                  onTap: () => scrollToSection(_skillsKey),
                 ),
                 PFLink(
                   title: LocaleKeys.contact.tr(),
-                  onTap: () => _scrollToSection(_contactKey),
+                  onTap: () => scrollToSection(_contactKey),
                 ),
               ],
             ),

@@ -11,134 +11,133 @@ class PFProjectsSection extends StatefulWidget {
 }
 
 class _PFProjectsSectionState extends State<PFProjectsSection> {
-
-
   int selectedIndex = 0;
-  final List<PFProject> allProjects = [
-    PFProject(
-      title: 'KEPSHA',
-      description: 'Description of Project 1',
-      imageUrl: 'https://via.placeholder.com/150',
-      teckStack: ['Flutter', 'AI'],
-      projectUrl: '',
-      mainStack: 'Flutter',
-      techTags: [   
-        TechTag(name: 'Flutter', icon: Icons.flutter_dash, link: 'https://flutter.dev'), 
-        TechTag(name: 'Firebase', icon: Icons.memory,),
-      ],
-    ),
-    PFProject(
-      title: 'Project 2',
-      description: 'Description of Project 2',
-      imageUrl: 'https://via.placeholder.com/150',
-      teckStack: ['Android'],
-      projectUrl: '',
-      mainStack: 'Android',
-      techTags: [   
-        TechTag(name: 'Android', icon: Icons.android, link: 'https://developer.android.com/'),
-      ],
-    ),
-  ];
-
-  final List<PFProject> flutterProjects = [
-    PFProject(
-      title: 'Project 1',
-      description: 'Description of Project 1',
-      imageUrl: 'https://via.placeholder.com/150',
-      teckStack: ['Flutter', 'AI'],
-      projectUrl: '',
-      mainStack: 'Flutter',
-      techTags: [   
-        TechTag(name: 'Flutter', icon: Icons.flutter_dash, link: 'https://flutter.dev'),
-        TechTag(name: 'AI', icon: Icons.memory, link: 'https://ai.google/'),
-      ],
-    ),
-  ];
-
-  // Store GitHub and PlayStore URLs separately
-  final Map<String, Map<String, String>> projectLinks = {
-    'Project 1': {
-      'github': 'https://github.com/username/project1',
-      'playstore': '',
-    },
-    'Project 2': {
-      'github': 'https://github.com/username/project2',
-      'playstore': 'https://play.google.com/store/apps/details?id=com.example.project2',
-    },
-    'Project 3': {
-      'github': '',
-      'playstore': 'https://play.google.com/store/apps/details?id=com.example.project3',
-    },
-  };
 
   final Map<String, List<PFProject>> projects = {
     'All': [
       PFProject(
-        title: 'KEPSHA 1',
-        description: 'Description of Project 1',
+        title: 'KEPSHA',
+        simpleDesc: 'A networking platform for school headteachers',
+        description: 'KEPSHA is an innovative mobile application designed specifically for Kenya’s school headteachers, offering a dedicated platform for connection, collaboration, and professional development. Through its intuitive interface, headteachers across the country can effortlessly network with one another, exchanging ideas, solutions, and experiences related to school administration and education management. The app’s discussion forums and messaging features foster a vibrant community, enabling users to share best practices, address common challenges, and support each other in professional growth. In addition to peer-to-peer networking, KEPSHA provides instant access to the latest news and updates relevant to the education sector. Headteachers can stay informed about policy changes, educational events, government directives, and important announcements through the app’s real-time news feed. By centralizing essential resources and facilitating communication, KEPSHA empowers school leaders to stay ahead in their field, ultimately contributing to the advancement of Kenya’s education system.',
         imageUrl: 'assets/images/kepsha_placeholder.jpg',
-        teckStack: ['Flutter', 'AI'],
+        teckStack: ['Flutter', 'Firebase'],
         imageBanner: 'assets/images/kepsha_app_banner.png',
-        projectUrl: '',
         mainStack: 'Flutter',
         techTags: [
           TechTag(name: 'Flutter', icon: Icons.flutter_dash, link: 'https://flutter.dev'),
-          TechTag(name: 'Firebase', icon: Icons.memory, link: 'https://ai.google/'),
+          TechTag(name: 'Firebase', icon: Icons.memory, link: 'https://firebase.google.com/'),
+        ],
+        projectLinks: [
+          ProjectLink(
+            url: 'https://github.com/username/kepsha',
+            type: ProjectLinkType.github,
+          ),
         ],
       ),
       PFProject(
-        title: 'Project 2',
-        description: 'Description of Project 2',
-        imageUrl: 'assets/images/sample_cover2.png',
-        teckStack: ['Android'],
-        projectUrl: '',
-        mainStack: 'Android',
+        title: 'Fitness Tracker',
+        simpleDesc: 'Track your everyday fitness routine with ease',
+        description: 'An app that helps users monitor their daily physical activities, set fitness goals, and track progress over time with detailed analytics and personalized workout recommendations',
+        imageUrl: 'assets/images/fitness_tracker_placeholder.jpeg',
+        teckStack: ['Flutter', 'Dart', 'Firebase'],
+        imageBanner: 'assets/images/fitness_tracker_banner.png',
+        mainStack: 'Flutter',
         techTags: [
-          TechTag(name: 'Android', icon: Icons.android, link: 'https://developer.android.com/'),
+          TechTag(name: 'Flutter', icon: Icons.flutter_dash, link: 'https://flutter.dev'),
+          TechTag(name: 'Firebase', icon: Icons.memory, link: 'https://firebase.google.com/'),
+        ],
+        projectLinks: [
+          ProjectLink(
+            url: 'https://github.com/username/fitness-tracker',
+            type: ProjectLinkType.github,
+          ),
+          ProjectLink(
+            url: 'https://play.google.com/store/apps/details?id=com.example.fitness',
+            type: ProjectLinkType.playStore,
+          ),
         ],
       ),
       PFProject(
         title: 'Project 3',
-        description: 'Description of Project 2',
+        simpleDesc: 'An innovative Android application',
+        description: 'Description of Project 3 - A comprehensive Android application with advanced features and modern UI design',
         imageUrl: 'assets/images/sample_cover3.png',
         teckStack: ['Android'],
-        projectUrl: '',
         mainStack: 'Android',
         techTags: [
           TechTag(name: 'Android', icon: Icons.android, link: 'https://developer.android.com/'),
         ],
+        projectLinks: [
+          ProjectLink(
+            url: 'https://github.com/username/project3',
+            type: ProjectLinkType.github,
+          ),
+        ],
       ),
-
-
-      
     ],
     'Flutter': [
       PFProject(
-        title: 'Project 1',
-        description: 'Description of Project 1',
-        imageUrl: 'https://via.placeholder.com/150',
-        teckStack: ['Flutter', 'AI'],
-        projectUrl: '',
+        title: 'KEPSHA',
+        simpleDesc: 'A networking platform for school headteachers',
+        description: 'An app that connects Kenya\'s school headteachers, allowing them to share resources, ideas, and best practices to improve education quality across the country',
+        imageUrl: 'assets/images/kepsha_placeholder.jpg',
+        teckStack: ['Flutter', 'Firebase'],
+        imageBanner: 'assets/images/kepsha_app_banner.png',
         mainStack: 'Flutter',
-        techTags: [   
+        techTags: [
           TechTag(name: 'Flutter', icon: Icons.flutter_dash, link: 'https://flutter.dev'),
-          TechTag(name: 'AI', icon: Icons.memory, link: 'https://ai.google/'),
+          TechTag(name: 'Firebase', icon: Icons.memory, link: 'https://firebase.google.com/'),
+        ],
+        projectLinks: [
+          ProjectLink(
+            url: 'https://github.com/username/kepsha',
+            type: ProjectLinkType.github,
+          ),
+        ],
+      ),
+      PFProject(
+        title: 'Fitness Tracker',
+        simpleDesc: 'Track your everyday fitness routine with ease',
+        description: 'An app that helps users monitor their daily physical activities, set fitness goals, and track progress over time with detailed analytics and personalized workout recommendations',
+        imageUrl: 'assets/images/fitness_tracker_placeholder.jpeg',
+        teckStack: ['Flutter', 'Dart', 'Firebase'],
+        imageBanner: 'assets/images/fitness_tracker_banner.png',
+        mainStack: 'Flutter',
+        techTags: [
+          TechTag(name: 'Flutter', icon: Icons.flutter_dash, link: 'https://flutter.dev'),
+          TechTag(name: 'Firebase', icon: Icons.memory, link: 'https://firebase.google.com/'),
+        ],
+        projectLinks: [
+          ProjectLink(
+            url: 'https://github.com/username/fitness-tracker',
+            type: ProjectLinkType.github,
+          ),
+          ProjectLink(
+            url: 'https://play.google.com/store/apps/details?id=com.example.fitness',
+            type: ProjectLinkType.playStore,
+          ),
         ],
       ),
     ],
     'Android': [
       PFProject(
-        title: 'Project 2',
-        description: 'Description of Project 2',
-        imageUrl: 'https://via.placeholder.com/150',
+        title: 'Project 3',
+        simpleDesc: 'An innovative Android application',
+        description: 'Description of Project 3 - A comprehensive Android application with advanced features and modern UI design',
+        imageUrl: 'assets/images/sample_cover3.png',
         teckStack: ['Android'],
-        projectUrl: '',
         mainStack: 'Android',
-        techTags: [   
+        techTags: [
           TechTag(name: 'Android', icon: Icons.android, link: 'https://developer.android.com/'),
         ],
+        projectLinks: [
+          ProjectLink(
+            url: 'https://github.com/username/project3',
+            type: ProjectLinkType.github,
+          ),
+        ],
       ),
-    ]           
+    ]
   };
 
   @override
@@ -157,31 +156,31 @@ class _PFProjectsSectionState extends State<PFProjectsSection> {
               ),
             ),
             const PFSpacer(),
-            PFProjectsView(children: projects[getSelectedTabTitle(selectedIndex)]?.map((project) {
-              return LayoutBuilder(
-                builder: (context, constraints) =>
-                 GestureDetector(
-                   onTap: () {
-                     // Navigate to project detail page
-                     final projectId = project.title.toLowerCase().replaceAll(' ', '-');
-                     final links = projectLinks[project.title] ?? {};
-                     Navigator.of(context).pushNamed(
-                       '/project/$projectId',
-                       arguments: {
-                         'project': project,
-                         'githubUrl': links['github'] ?? '',
-                         'playStoreUrl': links['playstore'] ?? '',
-                       },
-                     );
-                   },
-                   child: PFProjectCard(
-                    project: project,
-                    constraints: constraints,
-                  ),
-                 ),
-              );
-            }).toList() ?? []),
-            // You can add your project cards or list here
+            PFProjectsView(
+              children: projects[getSelectedTabTitle(selectedIndex)]
+                      ?.map((project) {
+                    return LayoutBuilder(
+                      builder: (context, constraints) => GestureDetector(
+                        onTap: () {
+                          // Navigate to project detail page
+                          final projectId =
+                              project.title.toLowerCase().replaceAll(' ', '-');
+                          Navigator.of(context).pushNamed(
+                            '/project/$projectId',
+                            arguments: {
+                              'project': project,
+                            },
+                          );
+                        },
+                        child: PFProjectCard(
+                          project: project,
+                          constraints: constraints,
+                        ),
+                      ),
+                    );
+                  }).toList() ??
+                  [],
+            ),
           ],
         ),
       ),
@@ -200,7 +199,6 @@ String getSelectedTabTitle(int index) {
     case 3:
       return LocaleKeys.ai.tr();
     default:
-      return LocaleKeys.all.tr(); // Default to All if not found
+      return LocaleKeys.all.tr();
   }
 }
-

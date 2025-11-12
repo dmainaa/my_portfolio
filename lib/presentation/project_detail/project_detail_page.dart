@@ -2,24 +2,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:my_portifolio/translations/locale_keys.g.dart';
 import 'package:portfolio_components/portfolio_components.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProjectDetailPage extends StatelessWidget {
   final PFProject project;
-  final String? githubUrl;
-  final String? playStoreUrl;
 
   const ProjectDetailPage({
     super.key,
     required this.project,
-    this.githubUrl,
-    this.playStoreUrl,
   });
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final imageHeight = size.height / 1.2; // Half of screen height
-
     return Scaffold(
       backgroundColor: PFAppColors.scaffoldBackground,
       body: CustomScrollView(
@@ -70,108 +64,92 @@ class ProjectDetailPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                          // Project Title
-                          PFText(
-                            project.title,
-                            style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                              color: PFAppColors.accent,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-
-                          const PFSpacer(size: PFAppSize.s24),
-
-                          // Project Description
-                          PFText(
-                            LocaleKeys.description.tr(),
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              color: PFAppColors.accent,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-
-                          const PFSpacer(size: PFAppSize.s12),
-
-                          PFText(
-                            project.description,
-                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: PFAppColors.defaultTextColor,
-                              height: 1.6,
-                            ),
-                          ),
-
-                          const PFSpacer(size: PFAppSize.s32),
-
-                          // Tech Stack Section
-                          PFText(
-                            'Tech Stack',
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              color: PFAppColors.accent,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-
-                          const PFSpacer(size: PFAppSize.s16),
-
-                          Wrap(
-                            spacing: PFAppSize.s16,
-                            runSpacing: PFAppSize.s16,
-                            children: (project.techTags ?? []).map((tag) {
-                              return _TechTagChip(tag: tag);
-                            }).toList(),
-                          ),
-
-                          const PFSpacer(size: PFAppSize.s32),
-
-                          // Links Section
-                          if ((githubUrl != null && githubUrl!.isNotEmpty) ||
-                              (playStoreUrl != null && playStoreUrl!.isNotEmpty) ||
-                              project.projectUrl.isNotEmpty) ...[
-                            PFText(
-                              'Links',
-                              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                color: PFAppColors.accent,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-
-                            const PFSpacer(size: PFAppSize.s16),
-
-                            Wrap(
-                              spacing: PFAppSize.s12,
-                              runSpacing: PFAppSize.s12,
-                              children: [
-                                // GitHub Link
-                                if (githubUrl != null && githubUrl!.isNotEmpty)
-                                  _LinkButton(
-                                    icon: Icons.code,
-                                    label: 'GitHub',
-                                    url: githubUrl!,
-                                  ),
-
-                                // PlayStore Link
-                                if (playStoreUrl != null && playStoreUrl!.isNotEmpty)
-                                  _LinkButton(
-                                    icon: Icons.shop,
-                                    label: 'Play Store',
-                                    url: playStoreUrl!,
-                                  ),
-
-                                // Project URL
-                                if (project.projectUrl.isNotEmpty)
-                                  _LinkButton(
-                                    icon: Icons.link,
-                                    label: LocaleKeys.view_project.tr(),
-                                    url: project.projectUrl,
-                                  ),
-                              ],
-                            ),
-                          ],
-
-                          const PFSpacer(size: PFAppSize.s48),
-                        ],
+                      // Project Title
+                      PFText(
+                        project.title,
+                        style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                          color: PFAppColors.accent,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: null,
                       ),
-                    ),
+
+                      const PFSpacer(size: PFAppSize.s24),
+
+                      // Project Description
+                      PFText(
+                        LocaleKeys.description.tr(),
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: PFAppColors.accent,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+
+                      const PFSpacer(size: PFAppSize.s12),
+
+                      PFText(
+                        project.description,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: PFAppColors.defaultTextColor,
+                          height: 1.6,
+                        ),
+                        maxLines: null,
+                      ),
+
+                      const PFSpacer(size: PFAppSize.s32),
+
+                      // Tech Stack Section
+                      if (project.techTags != null && project.techTags!.isNotEmpty) ...[
+                        PFText(
+                          'Tech Stack',
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: PFAppColors.accent,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+
+                        const PFSpacer(size: PFAppSize.s16),
+
+                        Wrap(
+                          spacing: PFAppSize.s16,
+                          runSpacing: PFAppSize.s16,
+                          children: project.techTags!.map((tag) {
+                            return _TechTagChip(tag: tag);
+                          }).toList(),
+                        ),
+
+                        const PFSpacer(size: PFAppSize.s32),
+                      ],
+
+                      // Links Section
+                      if (project.projectLinks != null && project.projectLinks!.isNotEmpty) ...[
+                        PFText(
+                          'Links',
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: PFAppColors.accent,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+
+                        const PFSpacer(size: PFAppSize.s16),
+
+                        Wrap(
+                          spacing: PFAppSize.s12,
+                          runSpacing: PFAppSize.s12,
+                          children: project.projectLinks!.map((link) {
+                            return _LinkButton(
+                              icon: link.icon,
+                              label: link.name,
+                              url: link.url,
+                            );
+                          }).toList(),
+                        ),
+                      ],
+
+                      const PFSpacer(size: PFAppSize.s48),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -216,7 +194,6 @@ class _TechTagChip extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          
         ],
       ),
     );
@@ -234,18 +211,20 @@ class _LinkButton extends StatelessWidget {
     required this.url,
   });
 
+  Future<void> _launchUrl() async {
+    final uri = Uri.parse(url);
+    try {
+      await launchUrl(uri, mode: LaunchMode.platformDefault);
+    } catch (e) {
+      // Handle error silently or show a snackbar
+      debugPrint('Could not launch $url: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        // Show snackbar with the URL
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: PFText('Opening: $url'),
-            duration: const Duration(seconds: 2),
-          ),
-        );
-      },
+      onTap: _launchUrl,
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: PFAppSize.s20,

@@ -376,9 +376,11 @@ packages:
   portfolio_components:
     dependency: "direct main"
     description:
-      path: "../portfolio_components"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "7b037c4bbd717a0402212dbc7b768297a36fbf3f"
+      url: "https://github.com/dmainaa/portfolio_components.git"
+    source: git
     version: "0.0.1"
   posix:
     dependency: transitive

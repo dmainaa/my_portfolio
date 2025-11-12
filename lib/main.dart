@@ -40,8 +40,6 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
               builder: (context) => ProjectDetailPage(
                 project: args['project'] as PFProject,
-                githubUrl: args['githubUrl'] as String?,
-                playStoreUrl: args['playStoreUrl'] as String?,
               ),
               settings: settings,
             );

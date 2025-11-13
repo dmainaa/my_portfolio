@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const PFSpacer(),
                   PFAboutMeSection(
                     key: _aboutKey,
-                    profileImagePath: 'assets/images/profile_image.png',
+                    profileImagePath: 'assets/svg/intro-section-asset.svg',
                   ),
                   const PFSpacer(),
                   PFProjectsSection(key: _projectsKey),

@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_portifolio/data/resume_data.dart';
 import 'package:my_portifolio/translations/locale_keys.g.dart';
 import 'package:my_portifolio/utils/pdf_generator.dart';
@@ -78,10 +77,13 @@ class HomeIntroSection extends StatelessWidget {
         : Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(flex: isTablet ? 2 : 1, child: _buildContent(context)),
+            Expanded(flex: isTablet ? 3 : 2, child: _buildContent(context)),
             if (!isMobile) ...[
               const SizedBox(width: 50),
-              Expanded(flex: 1, child: _buildSvgAsset()),
+              Align(
+                alignment: Alignment.centerRight,
+                child: _buildSvgAsset(),
+              ),
             ],
           ],
         );
@@ -159,9 +161,15 @@ class HomeIntroSection extends StatelessWidget {
   }
 
   Widget _buildSvgAsset() {
-    return SvgPicture.asset(
-      'assets/svg/intro-section-asset.svg',
-      fit: BoxFit.contain,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxHeight: 400,
+        maxWidth: 400,
+      ),
+      child: Image.asset(
+        'assets/images/profile_image.png',
+        fit: BoxFit.contain,
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:my_portifolio/translations/locale_keys.g.dart';
 import 'package:portfolio_components/portfolio_components.dart'
@@ -60,26 +61,27 @@ class PFAboutMeSection extends StatelessWidget {
       ],
     );
 
+    // Helper to render image based on file extension
+    Widget _buildImage() {
+      if (profileImagePath.endsWith('.svg')) {
+        return SvgPicture.asset(profileImagePath, fit: BoxFit.contain);
+      } else {
+        return Image.asset(profileImagePath);
+      }
+    }
+
     return PFSectionWidget(
       title: LocaleKeys.about.tr(),
       child:
           isMobile
-              ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.asset(profileImagePath),
-                  const PFSpacer(),
-
-                  contentColumn,
-                ],
-              )
+              ? contentColumn
               : Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(flex: 2, child: contentColumn),
                   const PFSpacer(vertical: false, size: PFAppSize.s50),
-                  Expanded(flex: 1, child: Image.asset(profileImagePath)),
+                  Expanded(flex: 1, child: _buildImage()),
                 ],
               ),
     );

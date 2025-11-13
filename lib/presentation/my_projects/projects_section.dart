@@ -201,8 +201,6 @@ class _PFProjectsSectionState extends State<PFProjectsSection> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    
     return PFSectionWidget(
       title: LocaleKeys.myProjects.tr(),
       child: Center(
@@ -236,7 +234,6 @@ class _PFProjectsSectionState extends State<PFProjectsSection> {
                         child: PFProjectCard(
                           project: project,
                           constraints: constraints,
-                          screenWidth: screenWidth,
                         ),
                       ),
                     );
